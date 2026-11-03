@@ -151,12 +151,12 @@ void USART2_IRQHandler(void)
 void EXTI4_15_IRQHandler(void)
 {
 	//TODO(Mark): not sure how to tell which exti cause the interrupt
-	if (EXTI->PR | EXTI_PR_PR13_Msk)
+	if (EXTI->PR & EXTI_PR_PR13_Msk)
 	{
 		global_click++;
 		if (global_click == MAX_MSG) global_click = 0;
 	}
-	EXTI->PR |= EXTI_PR_PR13_Msk; // clear the PR register
+	EXTI->PR = EXTI_PR_PR13_Msk; // clear only line 13 (PR is write-1-to-clear)
 }
 //void EXTI4_15_IRQHandler(void)
 //{
